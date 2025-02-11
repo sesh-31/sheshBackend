@@ -1,14 +1,13 @@
-export {asyncHandler}
-
-
-
-const asyncHandler = (requestHandler) => async (req , res , next) => {
-       try {
-        await fn(req, res , next)
-       } catch (error) {
-        res.status(error.code || 500).json({
-            sucess: false,
-            message: error.message
-        })
-       }
-}
+const asyncHandler = (requestHandler) => async (req, res, next) => {
+    try {
+      await requestHandler(req, res, next);  // Corrected variable name
+    } catch (error) {
+        console.error(error);
+      res.status(error.code || 500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+  export { asyncHandler };
+  
